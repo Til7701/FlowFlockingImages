@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            minWidth="100"
+            minHeight="100"
+            fx:controller="de.holube.flow.HelloController">
+    <Canvas fx:id="canvas" width="800" height="600" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"
+    />
+</AnchorPane>
