@@ -17,9 +17,19 @@ public class Vector2 {
         y *= value;
     }
 
+    public void div(float value) {
+        x /= value;
+        y /= value;
+    }
+
     public void add(Vector2 other) {
         x += other.x;
         y += other.y;
+    }
+
+    public void sub(Vector2 other) {
+        x -= other.x;
+        y -= other.y;
     }
 
     public void limit(float limit) {
@@ -31,6 +41,10 @@ public class Vector2 {
 
     public float mag() {
         return (float) Math.sqrt(x * x + y * y);
+    }
+
+    public void setMag(float mag) {
+        multi(mag / mag());
     }
 
     public void normalize() {
@@ -56,5 +70,9 @@ public class Vector2 {
         float mag = mag();
         x = (float) Math.cos(angle) * mag;
         y = (float) Math.sin(angle) * mag;
+    }
+
+    public static Vector2 sub(Vector2 a, Vector2 b) {
+        return new Vector2(a.x - b.x, a.y - b.y);
     }
 }

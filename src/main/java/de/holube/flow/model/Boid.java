@@ -19,6 +19,10 @@ public class Boid {
     @Setter
     private float maxSpeed = 2.5F;
 
+    @Getter
+    @Setter
+    private float maxForce = 1F;
+
     public Boid(Vector2 position) {
         this.position = position;
         velocity = new Vector2(0, 0);

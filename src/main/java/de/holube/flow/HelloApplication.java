@@ -15,8 +15,8 @@ import java.util.Random;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        final int width = 1920;
-        final int height = 1080;
+        final int width = 1024;
+        final int height = 720;
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
         Random random = new Random();
 
         FlockField flockField = new VectorFlockField(width, height);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             Boid boid = new Boid(new Vector2(random.nextInt(width), random.nextInt(height)));
             boid.getVelocity().setX(random.nextFloat());
             boid.getVelocity().setY(random.nextFloat());
