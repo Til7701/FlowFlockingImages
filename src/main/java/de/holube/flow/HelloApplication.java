@@ -15,8 +15,8 @@ import java.util.Random;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        final int width = 800;
-        final int height = 600;
+        final int width = 1920;
+        final int height = 1080;
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), width, height);

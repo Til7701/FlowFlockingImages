@@ -3,6 +3,7 @@ package de.holube.flow.model;
 import de.holube.flow.util.OpenSimplex2S;
 import de.holube.flow.util.UtilMethods;
 import de.holube.flow.util.Vector2;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.Collection;
 import java.util.Random;
@@ -42,7 +43,7 @@ public class VectorFlockField extends FlockField {
             Vector2[] row = vectors[i];
             for (int j = 0, rowLength = row.length; j < rowLength; j++) {
                 Vector2 vector = row[j];
-                float angle = noise((int) xoff, (int) yoff);
+                float angle = OpenSimplex2S.noise3_ImproveXY(0, xoff, yoff, time);
                 angle = UtilMethods.map(angle, 0, 1F, 0, (float) Math.PI * 2);
                 vector.setAngle(angle);
                 vector.normalize();
@@ -71,6 +72,24 @@ public class VectorFlockField extends FlockField {
         int i = (int) (boid.getPosition().getX());
         int j = (int) (boid.getPosition().getY());
         boid.applyForce(vectors[i][j]);
+    }
+
+    @Override
+    public void drawDebug(GraphicsContext gc) {
+        final int spacing = 25;
+        final int lineLength = spacing / 5;
+
+        for (int i = spacing; i < vectors.length; i += spacing) {
+            for (int j = spacing; j < vectors[i].length; j += spacing) {
+                Vector2 vector = vectors[i][j];
+
+                int x1 = (int) (i - vector.getX() * lineLength);
+                int y1 = (int) (j - vector.getY() * lineLength);
+                int x2 = (int) (i + vector.getX() * lineLength);
+                int y2 = (int) (j + vector.getY() * lineLength);
+                gc.strokeLine(x1, y1, x2, y2);
+            }
+        }
     }
 
 }

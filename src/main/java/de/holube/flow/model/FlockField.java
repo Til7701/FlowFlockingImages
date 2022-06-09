@@ -1,5 +1,6 @@
 package de.holube.flow.model;
 
+import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,4 +39,7 @@ public class FlockField {
         }
     }
 
+    public void drawDebug(GraphicsContext gc) {
+
+    }
 }
