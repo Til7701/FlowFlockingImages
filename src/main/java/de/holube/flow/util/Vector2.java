@@ -51,4 +51,10 @@ public class Vector2 {
             return value % max;
         }
     }
+
+    public void setAngle(float angle) {
+        float mag = mag();
+        x = (float) Math.cos(angle) * mag;
+        y = (float) Math.sin(angle) * mag;
+    }
 }

@@ -23,11 +23,13 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+        if (fxmlLoader.getController() instanceof HelloController c)
+            c.setCanvasSize(width, height);
 
         Random random = new Random();
 
         FlockField flockField = new VectorFlockField(width, height);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             Boid boid = new Boid(new Vector2(random.nextInt(width), random.nextInt(height)));
             boid.getVelocity().setX(random.nextFloat());
             boid.getVelocity().setY(random.nextFloat());
