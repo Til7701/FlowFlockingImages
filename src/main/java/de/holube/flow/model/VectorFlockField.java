@@ -4,6 +4,8 @@ import de.holube.flow.util.OpenSimplex2S;
 import de.holube.flow.util.UtilMethods;
 import de.holube.flow.util.Vector2;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.paint.Color;
 
 import java.util.Collection;
 import java.util.Random;
@@ -75,7 +77,14 @@ public class VectorFlockField extends FlockField {
     }
 
     @Override
-    public void drawDebug(GraphicsContext gc) {
+    public void drawDebug(GraphicsContext gc, int level) {
+        switch (level) {
+            case 2 -> drawDebug2(gc);
+            default -> drawDebug1(gc);
+        }
+    }
+
+    private void drawDebug1(GraphicsContext gc) {
         final int spacing = 25;
         final int lineLength = spacing / 5;
 
@@ -90,6 +99,20 @@ public class VectorFlockField extends FlockField {
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }
+    }
+
+    private void drawDebug2(GraphicsContext gc) {
+        PixelWriter pw = gc.getPixelWriter();
+        for (int i = 0; i < vectors.length; i++) {
+            for (int j = 0; j < vectors[i].length; j++) {
+                pw.setColor(i, j, getColorForAngle(vectors[i][j].getAngle()));
+            }
+        }
+    }
+
+    private Color getColorForAngle(float angle) {
+        final int value = (int) (angle * 255 / (Math.PI * 2));
+        return Color.rgb(value, value, value);
     }
 
 }

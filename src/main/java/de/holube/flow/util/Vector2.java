@@ -72,6 +72,14 @@ public class Vector2 {
         y = (float) Math.sin(angle) * mag;
     }
 
+    public float getAngle() {
+        float angle = (float) Math.atan2(y, x);
+        if (angle < 0) {
+            angle += 2 * Math.PI;
+        }
+        return angle;
+    }
+
     public static Vector2 sub(Vector2 a, Vector2 b) {
         return new Vector2(a.x - b.x, a.y - b.y);
     }

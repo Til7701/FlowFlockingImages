@@ -48,7 +48,7 @@ public class HelloController {
             GraphicsContext gc = debugCanvas.getGraphicsContext2D();
             gc.setFill(Color.TRANSPARENT);
             gc.clearRect(0, 0, debugCanvas.getWidth(), debugCanvas.getHeight());
-            flockField.drawDebug(gc);
+            flockField.drawDebug(gc, 2);
         });
     }
 

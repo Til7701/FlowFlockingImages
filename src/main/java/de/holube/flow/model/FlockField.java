@@ -46,7 +46,7 @@ public class FlockField {
         }
     }
 
-    public void drawDebug(GraphicsContext gc) {
+    public void drawDebug(GraphicsContext gc, int level) {
 
     }
 
