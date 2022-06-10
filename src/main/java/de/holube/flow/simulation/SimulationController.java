@@ -1,5 +1,6 @@
-package de.holube.flow;
+package de.holube.flow.simulation;
 
+import de.holube.flow.fx.MainController;
 import de.holube.flow.model.Field;
 import lombok.Getter;
 import lombok.Setter;

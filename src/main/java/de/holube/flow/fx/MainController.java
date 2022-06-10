@@ -1,5 +1,6 @@
-package de.holube.flow;
+package de.holube.flow.fx;
 
+import de.holube.flow.fx.util.PlatformExt;
 import de.holube.flow.model.Boid;
 import de.holube.flow.model.Field;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package de.holube.flow;
+package de.holube.flow.fx.util;
 
 import javafx.application.Platform;
 import lombok.AccessLevel;

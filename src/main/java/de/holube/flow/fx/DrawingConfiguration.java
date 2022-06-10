@@ -1,4 +1,4 @@
-package de.holube.flow;
+package de.holube.flow.fx;
 
 import de.holube.flow.model.Boid;
 import javafx.scene.paint.Color;
