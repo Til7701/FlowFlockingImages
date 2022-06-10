@@ -4,49 +4,99 @@ import de.holube.flow.model.Field;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Timer;
-import java.util.TimerTask;
+public class SimulationController {
 
-@Getter
-@Setter
-public class SimulationController extends Thread {
+    private static final SimulationController INSTANCE = new SimulationController();
 
-    private final Timer timer;
+    private SimulationController() {
 
-    private HelloController controller;
-    private Field field;
-
-    private volatile boolean running = true;
-
-    private int fps = 0;
-    private long lastFpsUpdate = 0;
-    private int fpsCounter = 0;
-
-    public SimulationController() {
-        timer = new Timer(true);
-        setDaemon(true);
     }
 
-    @Override
-    public void run() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (running) {
-                    field.update();
-                    controller.update(field, fps);
-                }
+    public static SimulationController getInstance() {
+        return INSTANCE;
+    }
 
-                long currentTime = System.nanoTime();
-                long delta = currentTime - lastFpsUpdate;
-                if (delta > 1000000000) {
-                    fps = fpsCounter;
-                    fpsCounter = 0;
-                    lastFpsUpdate = currentTime;
+
+    private Thread simulationThread;
+    private int threadCount = 0;
+
+    @Getter
+    @Setter
+    private MainController controller;
+    @Getter
+    @Setter
+    private Field field;
+
+    @Getter
+    private volatile int targetFps = 60;
+    private volatile int targetFrameTimeMillis = 1000 / targetFps;
+    @Getter
+    private int fps = 0;
+
+    public void setTargetFps(int targetFps) {
+        this.targetFps = targetFps;
+        targetFrameTimeMillis = 1000 / targetFps;
+    }
+
+    public void start() {
+        createNewSimulationThread();
+        simulationThread.start();
+    }
+
+    public void pause() {
+        simulationThread.interrupt();
+    }
+
+    private void createNewSimulationThread() {
+        simulationThread = new SimThread();
+        simulationThread.setName("SimulationThread-" + threadCount++);
+        simulationThread.setDaemon(true);
+    }
+
+    private class SimThread extends Thread {
+
+        long lastUpdate = 0;
+
+        long lastFpsUpdate = 0;
+        int fpsCounter = 0;
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+
+                field.update();
+                controller.update(field, fps);
+
+                long now = System.nanoTime();
+                System.out.println("FrameCount: " + fpsCounter);
+                if (toMillis(now - lastUpdate) < targetFrameTimeMillis) {
+                    try {
+                        final long timeToSleep = targetFrameTimeMillis - toMillis(now - lastUpdate);
+                        System.out.println(getName() + " Sleeping for " + timeToSleep + "ms FrameCount: " + fpsCounter);
+                        Thread.sleep(timeToSleep);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
-                fpsCounter++;
+                lastUpdate = now;
+                updateFPS();
             }
-        }, 0, 1000 / 60);
+        }
+
+        private void updateFPS() {
+            long delta = lastUpdate - lastFpsUpdate;
+            if (delta > 1_000_000_000) {
+                fps = fpsCounter;
+                fpsCounter = 0;
+                lastFpsUpdate = lastUpdate;
+            }
+            fpsCounter++;
+        }
+
+        private static long toMillis(long nanos) {
+            return nanos / 1_000_000;
+        }
+
     }
 
 }

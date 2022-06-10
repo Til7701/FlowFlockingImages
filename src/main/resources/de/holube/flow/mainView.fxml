@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <AnchorPane fx:id="parent" minHeight="100" minWidth="100" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/16" fx:controller="de.holube.flow.HelloController">
+            xmlns="http://javafx.com/javafx/16" fx:controller="de.holube.flow.MainController">
     <SplitPane dividerPositions="0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Pane fx:id="canvasParent">

@@ -12,18 +12,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Random;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         final int width = 1024;
         final int height = 720;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("mainView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
-        stage.setTitle("Hello!");
+        stage.setTitle("Have Fun!");
         stage.setScene(scene);
         stage.show();
-        if (fxmlLoader.getController() instanceof HelloController c)
+        if (fxmlLoader.getController() instanceof MainController c)
             c.setCanvasSize(width, height);
 
         Random random = new Random();
@@ -36,7 +37,7 @@ public class HelloApplication extends Application {
             field.getBoids().add(boid);
         }
 
-        SimulationController simulationController = new SimulationController();
+        SimulationController simulationController = SimulationController.getInstance();
         simulationController.setController(fxmlLoader.getController());
         simulationController.setField(field);
         simulationController.start();
