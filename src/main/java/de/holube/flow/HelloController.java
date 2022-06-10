@@ -7,7 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class HelloController {
 
@@ -15,11 +17,17 @@ public class HelloController {
     private AnchorPane parent;
 
     @FXML
+    private Pane canvasParent;
+    @FXML
     private Canvas canvas;
     @FXML
     private Canvas debugCanvas;
 
     private double canvasRatio;
+
+
+    @FXML
+    private Text fps;
 
     public void setCanvasSize(int width, int height) {
         // TODO make this option available to the user
@@ -34,11 +42,11 @@ public class HelloController {
     private void initialize() {
         canvasRatio = canvas.getWidth() / canvas.getHeight();
 
-        parent.widthProperty().addListener((observable, oldValue, newValue) -> resizeCanvas());
-        parent.heightProperty().addListener((observable, oldValue, newValue) -> resizeCanvas());
+        canvasParent.widthProperty().addListener((observable, oldValue, newValue) -> resizeCanvas());
+        canvasParent.heightProperty().addListener((observable, oldValue, newValue) -> resizeCanvas());
     }
 
-    public void update(Field field) {
+    public void update(Field field, int fps) {
         PlatformExt.runAndWait(() -> {
             PixelWriter pw = canvas.getGraphicsContext2D().getPixelWriter();
             for (Boid boid : field.getBoids()) {
@@ -48,7 +56,9 @@ public class HelloController {
             GraphicsContext gc = debugCanvas.getGraphicsContext2D();
             gc.setFill(Color.TRANSPARENT);
             gc.clearRect(0, 0, debugCanvas.getWidth(), debugCanvas.getHeight());
-            //field.drawDebug(gc, 1);
+            field.drawDebug(gc, 1);
+
+            this.fps.setText(String.format("%d FPS", fps));
         });
     }
 
@@ -58,12 +68,12 @@ public class HelloController {
         double calculatedScaleX;
         double calculatedScaleY;
 
-        if (parent.getWidth() / parent.getHeight() < canvasRatio) {
-            calculatedWidth = parent.getWidth();
-            calculatedHeight = parent.getWidth() / canvasRatio;
+        if (canvasParent.getWidth() / canvasParent.getHeight() < canvasRatio) {
+            calculatedWidth = canvasParent.getWidth();
+            calculatedHeight = canvasParent.getWidth() / canvasRatio;
         } else {
-            calculatedWidth = parent.getHeight() * canvasRatio;
-            calculatedHeight = parent.getHeight();
+            calculatedWidth = canvasParent.getHeight() * canvasRatio;
+            calculatedHeight = canvasParent.getHeight();
         }
 
         calculatedScaleX = calculatedWidth / canvas.getWidth();

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            minWidth="100"
-            minHeight="100"
-            fx:controller="de.holube.flow.HelloController"
-            fx:id="parent">
-    <Canvas fx:id="canvas" width="800" height="600"/>
-    <Canvas fx:id="debugCanvas" width="800" height="600"/>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<AnchorPane fx:id="parent" minHeight="100" minWidth="100" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/16" fx:controller="de.holube.flow.HelloController">
+    <SplitPane dividerPositions="0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane fx:id="canvasParent">
+            <Canvas fx:id="canvas" height="600" width="800"/>
+            <Canvas fx:id="debugCanvas" height="600" width="800"/>
+        </Pane>
+        <VBox minHeight="0.0" minWidth="100.0">
+            <Text fx:id="fps" text="FPS Error"/>
+        </VBox>
+    </SplitPane>
+
 </AnchorPane>

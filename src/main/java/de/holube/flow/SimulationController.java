@@ -16,7 +16,11 @@ public class SimulationController extends Thread {
     private HelloController controller;
     private Field field;
 
-    volatile boolean running = true;
+    private volatile boolean running = true;
+
+    private int fps = 0;
+    private long lastFpsUpdate = 0;
+    private int fpsCounter = 0;
 
     public SimulationController() {
         timer = new Timer(true);
@@ -30,8 +34,17 @@ public class SimulationController extends Thread {
             public void run() {
                 if (running) {
                     field.update();
-                    controller.update(field);
+                    controller.update(field, fps);
                 }
+
+                long currentTime = System.nanoTime();
+                long delta = currentTime - lastFpsUpdate;
+                if (delta > 1000000000) {
+                    fps = fpsCounter;
+                    fpsCounter = 0;
+                    lastFpsUpdate = currentTime;
+                }
+                fpsCounter++;
             }
         }, 0, 1000 / 60);
     }
