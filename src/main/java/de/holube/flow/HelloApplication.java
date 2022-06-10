@@ -2,7 +2,7 @@ package de.holube.flow;
 
 import de.holube.flow.model.Boid;
 import de.holube.flow.model.Field;
-import de.holube.flow.model.field.VectorFlowField;
+import de.holube.flow.model.field.ScaledVectorField;
 import de.holube.flow.util.Vector2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
 
         Random random = new Random();
 
-        Field field = new VectorFlowField(width, height);
+        Field field = new ScaledVectorField(width, height);
         for (int i = 0; i < 100; i++) {
             Boid boid = new Boid(new Vector2(random.nextInt(width), random.nextInt(height)));
             boid.getVelocity().setX(random.nextFloat());
