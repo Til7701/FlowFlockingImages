@@ -37,11 +37,14 @@ public class VectorFlowField extends DefaultField {
 
     @Override
     public void lateUpdate() {
+        float noiseRadius = 0.5f;
+
         float xOff = 0;
         for (Vector2[] row : vectors) {
             float yOff = 0;
             for (Vector2 vector : row) {
-                float angle = OpenSimplex2S.noise3_ImproveXY(0, xOff, yOff, time);
+                //float angle = OpenSimplex2S.noise3_ImproveXY(0, xOff, yOff, time);
+                float angle = OpenSimplex2S.noise4_ImproveXY_ImproveZW((long) (Math.random() * 10000), noiseRadius * Math.sin(xOff), noiseRadius * Math.cos(xOff), noiseRadius * Math.sin(yOff), noiseRadius * Math.cos(yOff));
                 angle = UtilMethods.map(angle, 0, 1F, 0, (float) Math.PI * 2);
                 vector.setAngle(angle);
                 vector.normalize();
