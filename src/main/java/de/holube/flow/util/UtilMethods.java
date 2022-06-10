@@ -6,7 +6,12 @@ public class UtilMethods {
         return toStart + (value - fromStart) * (toEnd - toStart) / (fromEnd - fromStart);
     }
 
-    public static float dist(Vector2 v1, Vector2 v2) {
-        return (float) Math.sqrt(Math.pow(v1.getX() - v2.getX(), 2) + Math.pow(v1.getY() - v2.getY(), 2));
+    public static float mod(float value, float max) {
+        if (value < 0) {
+            return max + value % max;
+        } else {
+            return value % max;
+        }
     }
+
 }

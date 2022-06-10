@@ -1,53 +1,24 @@
-package de.holube.flow.model;
+package de.holube.flow.model.field;
 
-import de.holube.flow.util.UtilMethods;
+import de.holube.flow.model.Boid;
+import de.holube.flow.model.DefaultField;
 import de.holube.flow.util.Vector2;
-import javafx.scene.canvas.GraphicsContext;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.function.BiConsumer;
 
-public class FlockField {
+public class FlockField extends DefaultField {
 
-    private static final float alignValue = 0.5f;
-    private static final float cohesionValue = 1f;
-    private static final float seperationValue = 1.2f;
-
-    @Getter
-    protected final int width;
-    @Getter
-    protected final int height;
-
-    @Getter
-    protected final List<Boid> boids;
-
-    @Getter
-    @Setter
-    protected BiConsumer<Boid, Collection<Boid>> onUpdate;
+    private static final float ALIGN_VALUE = 0.5f;
+    private static final float COHESION_VALUE = 1f;
+    private static final float SEPARATION_VALUE = 1.2f;
 
     public FlockField(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.boids = new ArrayList<>();
+        super(width, height);
     }
 
-    public void update() {
-        for (Boid boid : boids) {
-            if (onUpdate != null) {
-                onUpdate.accept(boid, boids);
-            }
-            flock(boid, boids);
-            boid.update();
-            boid.getPosition().mod(width, height);
-        }
-    }
-
-    public void drawDebug(GraphicsContext gc, int level) {
-
+    @Override
+    public void boidEarlyUpdate(Boid boid) {
+        flock(boid, boids);
     }
 
     protected void flock(Boid boid, Collection<Boid> boids) {
@@ -55,9 +26,9 @@ public class FlockField {
         Vector2 cohesion = cohesion(boid, boids);
         Vector2 separation = separation(boid, boids);
 
-        alignment.multi(alignValue);
-        cohesion.multi(cohesionValue);
-        separation.multi(seperationValue);
+        alignment.multi(ALIGN_VALUE);
+        cohesion.multi(COHESION_VALUE);
+        separation.multi(SEPARATION_VALUE);
 
         boid.applyForce(alignment);
         boid.applyForce(cohesion);
@@ -69,7 +40,7 @@ public class FlockField {
         Vector2 steering = new Vector2();
         int total = 0;
         for (Boid other : boids) {
-            float d = UtilMethods.dist(boid.getPosition(), other.getPosition());
+            float d = Vector2.dist(boid.getPosition(), other.getPosition());
             if (other != boid && d < perceptionRadius) {
                 steering.add(other.getVelocity());
                 total++;
@@ -89,7 +60,7 @@ public class FlockField {
         Vector2 steering = new Vector2();
         int total = 0;
         for (Boid other : boids) {
-            float d = UtilMethods.dist(boid.getPosition(), other.getPosition());
+            float d = Vector2.dist(boid.getPosition(), other.getPosition());
             if (other != boid && d < perceptionRadius) {
                 Vector2 diff = Vector2.sub(boid.getPosition(), other.getPosition());
                 diff.div(d * d);
@@ -111,7 +82,7 @@ public class FlockField {
         Vector2 steering = new Vector2();
         int total = 0;
         for (Boid other : boids) {
-            float d = UtilMethods.dist(boid.getPosition(), other.getPosition());
+            float d = Vector2.dist(boid.getPosition(), other.getPosition());
             if (other != boid && d < perceptionRadius) {
                 steering.add(other.getPosition());
                 total++;

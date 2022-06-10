@@ -4,23 +4,13 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 public class Vector2 {
 
     private float x;
     private float y;
-
-    public void multi(float value) {
-        x *= value;
-        y *= value;
-    }
-
-    public void div(float value) {
-        x /= value;
-        y /= value;
-    }
 
     public void add(Vector2 other) {
         x += other.x;
@@ -30,6 +20,16 @@ public class Vector2 {
     public void sub(Vector2 other) {
         x -= other.x;
         y -= other.y;
+    }
+
+    public void multi(float value) {
+        x *= value;
+        y *= value;
+    }
+
+    public void div(float value) {
+        x /= value;
+        y /= value;
     }
 
     public void limit(float limit) {
@@ -54,16 +54,8 @@ public class Vector2 {
     }
 
     public void mod(int width, int height) {
-        x = modImpl(x, width);
-        y = modImpl(y, height);
-    }
-
-    private static float modImpl(float value, float max) {
-        if (value < 0) {
-            return max + value % max;
-        } else {
-            return value % max;
-        }
+        x = UtilMethods.mod(x, width);
+        y = UtilMethods.mod(y, height);
     }
 
     public void setAngle(float angle) {
@@ -82,5 +74,9 @@ public class Vector2 {
 
     public static Vector2 sub(Vector2 a, Vector2 b) {
         return new Vector2(a.x - b.x, a.y - b.y);
+    }
+
+    public static float dist(Vector2 v1, Vector2 v2) {
+        return (float) Math.sqrt(Math.pow(v1.getX() - v2.getX(), 2) + Math.pow(v1.getY() - v2.getY(), 2));
     }
 }

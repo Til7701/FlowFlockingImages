@@ -1,6 +1,6 @@
 package de.holube.flow;
 
-import de.holube.flow.model.FlockField;
+import de.holube.flow.model.Field;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ public class SimulationController extends Thread {
     private final Timer timer;
 
     private HelloController controller;
-    private FlockField flockField;
+    private Field field;
 
     volatile boolean running = true;
 
@@ -29,8 +29,8 @@ public class SimulationController extends Thread {
             @Override
             public void run() {
                 if (running) {
-                    flockField.update();
-                    controller.update(flockField);
+                    field.update();
+                    controller.update(field);
                 }
             }
         }, 0, 1000 / 60);

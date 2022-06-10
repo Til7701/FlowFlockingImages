@@ -7,7 +7,6 @@ import lombok.Setter;
 
 public class Boid {
 
-
     @Getter
     private final Vector2 position;
     @Getter
@@ -29,11 +28,11 @@ public class Boid {
         acceleration = new Vector2(0, 0);
     }
 
-    void applyForce(Vector2 force) {
+    public void applyForce(Vector2 force) {
         this.acceleration.add(force);
     }
 
-    void update() {
+    public void update() {
         position.add(velocity);
         velocity.add(acceleration);
         velocity.limit(maxSpeed);

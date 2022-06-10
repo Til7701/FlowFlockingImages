@@ -1,7 +1,7 @@
 package de.holube.flow;
 
 import de.holube.flow.model.Boid;
-import de.holube.flow.model.FlockField;
+import de.holube.flow.model.Field;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,17 +38,17 @@ public class HelloController {
         parent.heightProperty().addListener((observable, oldValue, newValue) -> resizeCanvas());
     }
 
-    public void update(FlockField flockField) {
+    public void update(Field field) {
         PlatformExt.runAndWait(() -> {
             PixelWriter pw = canvas.getGraphicsContext2D().getPixelWriter();
-            for (Boid boid : flockField.getBoids()) {
+            for (Boid boid : field.getBoids()) {
                 pw.setColor((int) boid.getPosition().getX(), (int) boid.getPosition().getY(), DrawingConfiguration.getBoidColor(boid));
             }
 
             GraphicsContext gc = debugCanvas.getGraphicsContext2D();
             gc.setFill(Color.TRANSPARENT);
             gc.clearRect(0, 0, debugCanvas.getWidth(), debugCanvas.getHeight());
-            flockField.drawDebug(gc, 2);
+            //field.drawDebug(gc, 1);
         });
     }
 
