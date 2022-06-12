@@ -69,11 +69,9 @@ public class SimulationController {
                 controller.get().update(currentField, fps.get());
 
                 long now = System.nanoTime();
-                System.out.println("FrameCount: " + fpsCounter);
                 if (toMillis(now - lastUpdate) < targetFrameTimeMillis) {
                     try {
                         final long timeToSleep = targetFrameTimeMillis - toMillis(now - lastUpdate);
-                        System.out.println(getName() + " Sleeping for " + timeToSleep + "ms FrameCount: " + fpsCounter);
                         Thread.sleep(timeToSleep);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();

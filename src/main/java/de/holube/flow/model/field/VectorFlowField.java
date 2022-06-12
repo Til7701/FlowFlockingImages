@@ -2,9 +2,9 @@ package de.holube.flow.model.field;
 
 import de.holube.flow.model.Boid;
 import de.holube.flow.model.DefaultField;
-import de.holube.flow.util.OpenSimplex2S;
 import de.holube.flow.util.UtilMethods;
 import de.holube.flow.util.Vector2;
+import de.holube.flow.util.noise.SphereNoise;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
@@ -40,11 +40,14 @@ public class VectorFlowField extends DefaultField {
         float noiseRadius = 0.5f;
 
         float xOff = 0;
-        for (Vector2[] row : vectors) {
+        for (int j = 0; j < vectors.length; j++) {
+            Vector2[] row = vectors[j];
             float yOff = 0;
-            for (Vector2 vector : row) {
+            for (int i = 0; i < row.length; i++) {
+                Vector2 vector = row[i];
                 //float angle = OpenSimplex2S.noise3_ImproveXY(0, xOff, yOff, time);
-                float angle = OpenSimplex2S.noise4_ImproveXY_ImproveZW((long) (Math.random() * 10000), noiseRadius * Math.sin(xOff), noiseRadius * Math.cos(xOff), noiseRadius * Math.sin(yOff), noiseRadius * Math.cos(yOff));
+                //float angle = OpenSimplex2S.noise4_ImproveXY_ImproveZW((long) (Math.random() * 10000), noiseRadius * Math.sin(xOff), noiseRadius * Math.cos(xOff), noiseRadius * Math.sin(yOff), noiseRadius * Math.cos(yOff));
+                float angle = SphereNoise.noise(0, i, j, width, height, 0, 0, time, 5);
                 angle = UtilMethods.map(angle, 0, 1F, 0, (float) Math.PI * 2);
                 vector.setAngle(angle);
                 vector.normalize();

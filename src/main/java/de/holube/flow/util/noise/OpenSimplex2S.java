@@ -1,4 +1,4 @@
-package de.holube.flow.util;
+package de.holube.flow.util.noise;
 
 /**
  * K.jpg's OpenSimplex 2, smooth variant ("SuperSimplex")
