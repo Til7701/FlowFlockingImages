@@ -57,7 +57,7 @@ public class MainController {
             GraphicsContext gc = debugCanvas.getGraphicsContext2D();
             gc.setFill(Color.TRANSPARENT);
             gc.clearRect(0, 0, debugCanvas.getWidth(), debugCanvas.getHeight());
-            field.drawDebug(gc, 1);
+            field.drawDebug(gc, 2);
 
             this.fps.setText(String.format("%d FPS", fps));
         });

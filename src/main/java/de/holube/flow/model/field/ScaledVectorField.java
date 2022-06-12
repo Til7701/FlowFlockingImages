@@ -9,6 +9,8 @@ import javafx.scene.paint.Color;
 
 public class ScaledVectorField extends DefaultField {
 
+    private static final long SEED = (long) (Math.random() * Long.MAX_VALUE);
+
     private final int scl = 10;
     private final int rows;
     private final int cols;
@@ -49,7 +51,7 @@ public class ScaledVectorField extends DefaultField {
             for (int i = 0; i < row.length; i++) {
                 Vector2 vector = row[i];
                 //float angle = OpenSimplex2S.noise3_ImproveXY(0, xOff, yOff, time);
-                float angle = SphereNoise.noise(0, i, j, vectors.length, vectors[i].length, 0, time, 0, 0.1F);
+                float angle = SphereNoise.noise(SEED, i, j, vectors.length, vectors[i].length, 0, time, 0, 2F);
                 angle = UtilMethods.map(angle, 0, 1F, 0, (float) Math.PI * 2);
                 vector.setAngle(angle);
                 vector.normalize();

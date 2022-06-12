@@ -6,13 +6,13 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane fx:id="parent" minHeight="100" minWidth="100" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/16" fx:controller="de.holube.flow.fx.MainController">
-    <SplitPane dividerPositions="0.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+    <SplitPane dividerPositions="0.95" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Pane fx:id="canvasParent">
             <Canvas fx:id="canvas" height="600" width="800"/>
             <Canvas fx:id="debugCanvas" height="600" width="800"/>
         </Pane>
-        <VBox minHeight="0.0" minWidth="100.0">
+        <VBox minHeight="0.0" minWidth="50.0">
             <Text fx:id="fps" text="FPS Error"/>
         </VBox>
     </SplitPane>

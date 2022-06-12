@@ -23,7 +23,7 @@ public class MainApplication extends Application {
         final int height = 1080;
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("mainView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        Scene scene = new Scene(fxmlLoader.load(), width + 100.0, height);
         stage.setTitle("Have Fun!");
         stage.setScene(scene);
         stage.show();
