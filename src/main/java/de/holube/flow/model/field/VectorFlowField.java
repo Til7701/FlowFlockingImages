@@ -1,7 +1,6 @@
 package de.holube.flow.model.field;
 
 import de.holube.flow.model.Boid;
-import de.holube.flow.model.DefaultField;
 import de.holube.flow.util.UtilMethods;
 import de.holube.flow.util.Vector2;
 import de.holube.flow.util.noise.SphereNoise;
@@ -47,7 +46,7 @@ public class VectorFlowField extends DefaultField {
                 Vector2 vector = row[i];
                 //float angle = OpenSimplex2S.noise3_ImproveXY(0, xOff, yOff, time);
                 //float angle = OpenSimplex2S.noise4_ImproveXY_ImproveZW((long) (Math.random() * 10000), noiseRadius * Math.sin(xOff), noiseRadius * Math.cos(xOff), noiseRadius * Math.sin(yOff), noiseRadius * Math.cos(yOff));
-                float angle = SphereNoise.noise(0, i, j, width, height, 0, 0, time, 5);
+                float angle = SphereNoise.noise(0, i, j, width, height, xOff, yOff, time, 5);
                 angle = UtilMethods.map(angle, 0, 1F, 0, (float) Math.PI * 2);
                 vector.setAngle(angle);
                 vector.normalize();

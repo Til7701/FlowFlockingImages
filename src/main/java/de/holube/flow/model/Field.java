@@ -26,7 +26,7 @@ public abstract class Field {
         earlyUpdate();
         for (Boid boid : boids) {
             boidEarlyUpdate(boid);
-            boid.update();
+            boid.update(this);
             boidLateUpdate(boid);
         }
         lateUpdate();

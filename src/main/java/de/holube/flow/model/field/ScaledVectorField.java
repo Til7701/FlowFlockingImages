@@ -1,7 +1,6 @@
 package de.holube.flow.model.field;
 
 import de.holube.flow.model.Boid;
-import de.holube.flow.model.DefaultField;
 import de.holube.flow.util.UtilMethods;
 import de.holube.flow.util.Vector2;
 import de.holube.flow.util.noise.SphereNoise;

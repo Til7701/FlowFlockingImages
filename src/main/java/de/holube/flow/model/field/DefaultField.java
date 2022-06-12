@@ -1,5 +1,7 @@
-package de.holube.flow.model;
+package de.holube.flow.model.field;
 
+import de.holube.flow.model.Boid;
+import de.holube.flow.model.Field;
 import javafx.scene.canvas.GraphicsContext;
 
 public class DefaultField extends Field {
