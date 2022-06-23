@@ -12,7 +12,7 @@ public class FlockBoid extends DefaultBoid {
 
     private static final float ALIGN_VALUE = 0.5f;
     private static final float COHESION_VALUE = 1f;
-    private static final float SEPARATION_VALUE = 1.2f;
+    private static final float SEPARATION_VALUE = 1.3f;
 
     public FlockBoid(Vector2 position) {
         super(position);

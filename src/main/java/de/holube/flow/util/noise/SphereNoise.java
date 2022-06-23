@@ -27,8 +27,8 @@ public class SphereNoise {
             return 0;
         }
 
-        float theta = yR / ySize * (float) Math.PI * 2;
-        float phi = xR / xSize * (float) Math.PI * 2;
+        float theta = (yR / ySize) * (float) Math.PI * 1.1F;
+        float phi = (xR / xSize) * (float) Math.PI * 3.6F;
 
         return noise(seed, radius, theta, phi, x, y, z);
     }
@@ -46,15 +46,33 @@ public class SphereNoise {
     }
 
     public static float toRectangularX(float rho, float theta, float phi) {
-        return (float) (rho * Math.sin(phi) * Math.cos(theta));
+        boolean negative = phi >= Math.PI / 2;
+        if (negative)
+            phi -= Math.PI;
+        float x = (float) (rho * Math.sin(phi) * Math.cos(theta));
+        if (negative)
+            x = -x;
+        return x;
     }
 
     public static float toRectangularY(float rho, float theta, float phi) {
-        return (float) (rho * Math.sin(phi) * Math.sin(theta));
+        boolean negative = phi >= Math.PI / 2;
+        if (negative)
+            phi -= Math.PI;
+        float y = (float) (rho * Math.sin(phi) * Math.sin(theta));
+        if (negative)
+            y = -y;
+        return y;
     }
 
     public static float toRectangularZ(float rho, float phi) {
-        return (float) (rho * Math.cos(phi));
+        boolean negative = phi >= Math.PI / 2;
+        if (negative)
+            phi -= Math.PI;
+        float z = (float) (rho * Math.cos(phi));
+        if (negative)
+            z = -z;
+        return z;
     }
 
 }
