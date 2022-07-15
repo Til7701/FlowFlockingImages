@@ -78,10 +78,10 @@ public class ScaledVectorField extends DefaultField {
             for (int j = 0; j < vectors[i].length; j++) {
                 Vector2 vector = vectors[i][j];
 
-                int x1 = (int) ((i * scl) - vector.getX() * lineLength);
-                int y1 = (int) ((j * scl) - vector.getY() * lineLength);
-                int x2 = (int) ((i * scl) + vector.getX() * lineLength);
-                int y2 = (int) ((j * scl) + vector.getY() * lineLength);
+                int x1 = (int) ((i * scl + (0.5 * scl)) - vector.getX() * lineLength);
+                int y1 = (int) ((j * scl + (0.5 * scl)) - vector.getY() * lineLength);
+                int x2 = (int) ((i * scl + (0.5 * scl)) + vector.getX() * lineLength);
+                int y2 = (int) ((j * scl + (0.5 * scl)) + vector.getY() * lineLength);
                 gc.strokeLine(x1, y1, x2, y2);
             }
         }

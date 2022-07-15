@@ -1,6 +1,5 @@
-package de.holube.flow.fx;
+package de.holube.flow.model;
 
-import de.holube.flow.model.Boid;
 import javafx.scene.paint.Color;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
